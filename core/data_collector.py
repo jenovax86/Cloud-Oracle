@@ -73,6 +73,12 @@ def clean_data(df):
     df["date"] = pd.to_datetime(df["date"], errors="coerce")
     df = df.drop_duplicates(subset=["date"], keep="first").reset_index(drop=True)
     df = df.sort_values("date").reset_index(drop=True)
+
+    for column in df["lowest_temperature", "highest_temperature"]:
+        df[column] = df[column].astype(str).str.replace(r"[^0-9\-]", "", regex=True)
+        df[column] = pd.to_numeric(df[column], errors="coerce").astype("Int64")
+
+    df = df.dropna(subset=["lowest_temperature", "highest_temperature"])
     return df
 
 
