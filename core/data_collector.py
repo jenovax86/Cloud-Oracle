@@ -6,6 +6,7 @@ from datetime import datetime
 from calendar import monthrange
 import pandas as pd
 import time
+import os
 
 MONTHS = {
     "january": 1,
@@ -44,7 +45,6 @@ def extract_month_days(days, month_number):
 def parse_daily_temperatures(month_days, month_name):
     weather_data = []
     for date_num, day in month_days:
-        week_day = date_num.strftime("%a")
         temp_parent_element = day.find_element(By.CLASS_NAME, "temp")
         temp_low = (
             temp_parent_element.find_element(By.CLASS_NAME, "low").text
@@ -59,7 +59,7 @@ def parse_daily_temperatures(month_days, month_name):
         weather_data.append(
             {
                 "month": month_name,
-                "day": week_day,
+                "day": date_num.strftime("%a"),
                 "date": date_num.strftime("%Y-%m-%d"),
                 "lowest_temperature": temp_low,
                 "highest_temperature": temp_high,
@@ -102,5 +102,17 @@ def scrape_weather_data():
     return clean_data(df)
 
 
-data = scrape_weather_data()
-data.to_csv("../data/data.csv")
+def main():
+    current_dir = os.getcwd()
+    parent_dir = os.path.dirname(current_dir)
+    new_folder = os.path.join(parent_dir, "data")
+
+    try:
+        os.makedirs(new_folder)
+    except FileExistsError:
+        print("Directory already exists.")
+
+    data = scrape_weather_data()
+    data.to_csv("../data/weather_data.csv")
+
+main()

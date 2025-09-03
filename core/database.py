@@ -1,16 +1,20 @@
 import mysql.connector
 from mysql.connector import errorcode
 import pandas as pd
+from dotenv import load_dotenv
+import os
 
-WEATHER_DATA = pd.read_csv("../data/data.csv")
+load_dotenv()
+
+WEATHER_DATA = pd.read_csv("../data/weather_data.csv")
 
 try:
     my_db = mysql.connector.connect(
-        host="localhost",
-        port=3000,
-        user="root",
-        password="2002",
-        database="cloud_oracle",
+        host=os.getenv("HOST"),
+        port=os.getenv("PORT"),
+        user=os.getenv("USER"),
+        password=os.getenv("PASSWORD"),
+        database=os.getenv("DATABASE"),
     )
 
 except mysql.connector.Error as err:
@@ -40,18 +44,26 @@ def insert_record(connection, weather_records):
             ),
         )
 
-    connection.commit()
-
-    query_d = """
-            SELECT * FROM Weather_data;
-            """
-    cursor.execute(query_d)
-    results = cursor.fetchall()
+    result = cursor.fetchall()
     cursor.close()
-    return results
+    return result
+
+
+def retrieve_data(connection):
+    cursor = connection.cursor()
+
+    retrieve_data_query = """
+            SELECT month, day, date, lowest_temperature, highest_temperature FROM weather_data ORDER BY date;
+            """
+
+    cursor.execute(retrieve_data_query)
+    result = cursor.fetchall()
+    cursor.close()
+    return result
 
 
 if my_db.is_connected():
-    data = insert_record(my_db, WEATHER_DATA)
-    print(data)
+    insert_data = insert_record(my_db, WEATHER_DATA)
+    get_data = retrieve_data(my_db)
+    print(get_data)
     my_db.close()
