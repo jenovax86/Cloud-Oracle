@@ -1,12 +1,12 @@
-#Cloud-Oracle 🌤️
+# Cloud-Oracle 🌤️
 
-##A Python-based weather forecaster powered by MySQL and machine learning
+## A Python-based weather forecaster powered by MySQL and machine learning
 
-###Cloud-Oracle predicts the lowest and highest temperatures for 2025 using historical weather data crawled from AccuWeather.
+### Cloud-Oracle predicts the lowest and highest temperatures for 2025 using historical weather data crawled from AccuWeather.
 The data is stored in MySQL, retrieved for preprocessing, and then used to train an AI/ML model for forecasting.
 Results are visualized with plots to make predictions easier to interpret.
 
-##Features
+## Features
 
   -🌐 Crawls weather data from AccuWeather
 
@@ -18,16 +18,17 @@ Results are visualized with plots to make predictions easier to interpret.
 
   -📊 Generates plots of predictions for better visualization
 
-#Getting Started
-##Prerequisites
+# Getting Started
+## Prerequisites
   -Python 3.8+
   -MySQL server (local or remote)
   -Python packages (see below)
-###install dependencies:
+### install dependencies:
 ```bash
 pip install -r requirements.txt
 ```
-###Sample requirements.txt:
+### Sample requirements.txt:
+```
 mysql-connector-python
 pandas
 numpy
@@ -38,13 +39,13 @@ selenium
 calender
 time
 os
-
-#Database Setup
+```
+# Database Setup
   -Create a MySQL database (e.g. cloud_oracle).
   -Import crawled weather data into a table (e.g. weather_data).
   -Update connection credentials in your Python scripts (host, user, password, database).
 
-#Usage
+# Usage
 1. Crawl data & insert into MySQL
 ```bash
 python core/data_collector.py
@@ -53,9 +54,10 @@ python core/data_collector.py
 ```bash
 python core/weather_forecast_model
 ```
-#Expected Output:
+# Expected Output:
   -A plot that shows the high and low temperatures in all days of the months
-#Limitations
+
+# Limitations
   -Predictions are experimental — based only on crawled AccuWeather data
   -Not a substitute for official meteorological forecasts
   -Intended for educational and research purposes
