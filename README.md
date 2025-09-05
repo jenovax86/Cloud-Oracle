@@ -20,9 +20,11 @@ Results are visualized with plots to make predictions easier to interpret.
 
 # Getting Started
 ## Prerequisites
-  -Python 3.8+
-  -MySQL server (local or remote)
-  -Python packages (see below)
+  Python 3.8+
+  
+  MySQL server (local or remote)
+  
+  Python packages (see below)
 ### install dependencies:
 ```bash
 pip install -r requirements.txt
@@ -42,7 +44,9 @@ os
 ```
 # Database Setup
   Create a MySQL database (e.g. cloud_oracle).
+  
   Import crawled weather data into a table (e.g. weather_data).
+  
   Update connection credentials in your Python scripts (host, user, password, database).
 
 # Usage
@@ -59,5 +63,7 @@ python core/weather_forecast_model
 
 # Limitations
   Predictions are experimental — based only on crawled AccuWeather data.
+  
   Not a substitute for official meteorological forecasts.
+  
   Intended for educational and research purposes.
