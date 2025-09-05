@@ -69,7 +69,7 @@ def parse_daily_temperatures(month_days, month_name):
     return weather_data
 
 
-def clean_data(df):
+def data_preprocessing(df):
     df["date"] = pd.to_datetime(df["date"], errors="coerce")
     df = df.drop_duplicates(subset=["date"], keep="first").reset_index(drop=True)
     df = df.sort_values("date").reset_index(drop=True)
