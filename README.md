@@ -41,9 +41,9 @@ time
 os
 ```
 # Database Setup
-  -Create a MySQL database (e.g. cloud_oracle).
-  -Import crawled weather data into a table (e.g. weather_data).
-  -Update connection credentials in your Python scripts (host, user, password, database).
+  Create a MySQL database (e.g. cloud_oracle).
+  Import crawled weather data into a table (e.g. weather_data).
+  Update connection credentials in your Python scripts (host, user, password, database).
 
 # Usage
 1. Crawl data & insert into MySQL
@@ -55,9 +55,9 @@ python core/data_collector.py
 python core/weather_forecast_model
 ```
 # Expected Output:
-  -A plot that shows the high and low temperatures in all days of the months
+  A plot that shows the high and low temperatures in all days of the months
 
 # Limitations
-  -Predictions are experimental — based only on crawled AccuWeather data
-  -Not a substitute for official meteorological forecasts
-  -Intended for educational and research purposes
+  Predictions are experimental — based only on crawled AccuWeather data.
+  Not a substitute for official meteorological forecasts.
+  Intended for educational and research purposes.
