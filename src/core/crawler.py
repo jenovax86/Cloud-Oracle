@@ -111,6 +111,5 @@ def main():
         print("Directory already exists.")
 
     data = scrape_weather_data()
-    data.to_csv("../data/weather_data.csv")
 
 main()
