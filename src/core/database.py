@@ -18,7 +18,6 @@ def connection():
             password=os.getenv("PASSWORD"),
             database=os.getenv("DATABASE"),
         )
-
     except mysql.connector.Error as err:
         if err.errno == errorcode.ER_ACCESS_DENIED_ERROR:
             print("Something is wrong with your username or password")
@@ -72,3 +71,4 @@ def retrieve_data():
 
 insert_data = insert_record(WEATHER_DATA)
 get_data = retrieve_data()
+print

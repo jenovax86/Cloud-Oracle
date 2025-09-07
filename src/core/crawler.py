@@ -5,7 +5,6 @@ from selenium.webdriver.support import expected_conditions as EC
 from datetime import datetime
 from calendar import monthrange
 import pandas as pd
-import time
 import os
 
 MONTHS = {
@@ -24,7 +23,7 @@ MONTHS = {
 }
 COUNTRY = "iran"
 YEAR = 2024
-
+WEB_DRIVER_WAIT = 20
 
 def extract_month_days(days, month_number):
     valid_days = []
@@ -88,9 +87,8 @@ def scrape_weather_data():
     for month_name, month_number in MONTHS.items():
         url = f"https://www.accuweather.com/en/ru/{COUNTRY}/605458/{month_name}-weather/605458?year=2024"
         driver.get(url)
-        time.sleep(2)
 
-        days = WebDriverWait(driver, 10).until(
+        days = WebDriverWait(driver, WEB_DRIVER_WAIT).until(
             EC.presence_of_all_elements_located((By.CSS_SELECTOR, ".monthly-daypanel"))
         )
         month_days = extract_month_days(days, month_number)
@@ -99,7 +97,7 @@ def scrape_weather_data():
 
     driver.quit()
     df = pd.DataFrame(weather_scrapped_data)
-    return clean_data(df)
+    return data_preprocessing(df)
 
 
 def main():
