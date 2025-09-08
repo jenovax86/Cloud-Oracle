@@ -23,7 +23,8 @@ MONTHS = {
 }
 COUNTRY = "iran"
 YEAR = 2024
-WEB_DRIVER_WAIT = 20
+WEBDRIVER_TIMEOUT = 20
+
 
 def extract_month_days(days, month_number):
     valid_days = []
@@ -88,9 +89,11 @@ def scrape_weather_data():
         url = f"https://www.accuweather.com/en/ru/{COUNTRY}/605458/{month_name}-weather/605458?year=2024"
         driver.get(url)
 
-        days = WebDriverWait(driver, WEB_DRIVER_WAIT).until(
+        days = WebDriverWait(driver, WEBDRIVER_TIMEOUT).until(
             EC.presence_of_all_elements_located((By.CSS_SELECTOR, ".monthly-daypanel"))
         )
+
+        pd.options.display.max_rows=1000
         month_days = extract_month_days(days, month_number)
         result = parse_daily_temperatures(month_days, month_name)
         weather_scrapped_data.extend(result)
@@ -98,18 +101,3 @@ def scrape_weather_data():
     driver.quit()
     df = pd.DataFrame(weather_scrapped_data)
     return data_preprocessing(df)
-
-
-def main():
-    current_dir = os.getcwd()
-    parent_dir = os.path.dirname(current_dir)
-    new_folder = os.path.join(parent_dir, "data")
-
-    try:
-        os.makedirs(new_folder)
-    except FileExistsError:
-        print("Directory already exists.")
-
-    data = scrape_weather_data()
-
-main()
