@@ -60,7 +60,7 @@ def mean_rounded(array):
     return np.round(np.mean(array)).astype(int)
 
 
-def get_weather_specifics(driver):
+def get_weather_summary(driver):
     try:
         rows = WebDriverWait(driver, WEBDRIVER_TIMEOUT).until(
             EC.presence_of_all_elements_located(
@@ -103,7 +103,7 @@ def select_days_dropdown(driver):
                 (By.XPATH, "//table[@id='wt-his']//tbody/tr")
             )
         )
-        temp, wind, humidity = get_weather_specifics(driver)
+        temp, wind, humidity = get_weather_summary(driver)
         weather_data.append(
             {
                 "country": COUNTRY,
