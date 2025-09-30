@@ -85,6 +85,6 @@ def run_weather_crawler():
         year_of_db = datetime.strptime(
             last_available_year_in_database, "%Y-%m-%d %H:%M:%S"
         ).year
-        if LAST_AVAILABLE_YEAR < int(year_of_db):
+        if year_of_db < PAST_YEAR:
             scrape_weather_data(driver, year_of_db)
     driver.quit()
