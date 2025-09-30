@@ -2,8 +2,9 @@ import sqlite3
 
 CONNECTION = sqlite3.connect("weather_forecast")
 
+
 def create_table():
-    
+
     cursor = CONNECTION.cursor()
     query = """
             CREATE TABLE IF NOT EXISTS weather(

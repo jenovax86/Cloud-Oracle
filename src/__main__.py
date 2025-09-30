@@ -1,8 +1,8 @@
-from crawler import crawl_weather_data
+from crawler import run_weather_crawler
+
 
 def main():
-    crawled_data = crawl_weather_data()
-    
+    crawled_weather_data = run_weather_crawler()
 
 
 if __name__ == "__main__":

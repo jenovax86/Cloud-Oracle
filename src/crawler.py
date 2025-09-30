@@ -5,21 +5,22 @@ from selenium.common.exceptions import StaleElementReferenceException
 from selenium.webdriver.support import expected_conditions as EC
 from datetime import datetime
 from bs4 import BeautifulSoup
-from database.db import insert_weather_records, get_weather_records, find_last_year
+from database.db import insert_weather_records, find_last_year
 
 WEBDRIVER_TIMEOUT = 20
+PAST_YEAR = int(datetime.now().year - 1)
+LAST_AVAILABLE_YEAR = 2010 - 1
+FIRST_MONTH_OF_YEAR = 1
+LAST_MONTH_OF_YEAR = 12 + 1
+DESCENDING_ORDER = -1
 
 
-def temperature_remove_signs(temperature):
-    return int(temperature.split(":")[1])
-
-
-def generate_date(year, month, days_of_month, time):
+def generate_datetime(year, month, days_of_month, time):
     date_string = f"{year}-{month}-{days_of_month} {time}"
     return datetime.strptime(date_string, "%Y-%m-%d %H:%M")
 
 
-def parse_daily_weather_summary(driver, year, month):
+def parse_daily_weather_data(driver, year, month):
     weather_data_summary = []
     days_of_month = 0
     try:
@@ -39,21 +40,21 @@ def parse_daily_weather_summary(driver, year, month):
             time = (
                 section.find("div", class_="time").get_text(strip=True)
                 if section.find("div", class_="time")
-                else ""
+                else None
             )
             low_temperature = (
                 section.find("div", class_="tempLow low").get_text(strip=True)
                 if section.find("div", class_="tempLow low")
-                else ""
+                else None
             )
             high_temperature = (
                 section.find("div", class_="temp low").get_text(strip=True)
                 if section.find("div", class_="temp low")
-                else ""
+                else None
             )
             weather_data_summary.append(
                 {
-                    "date": generate_date(year, month, days_of_month, time),
+                    "date": generate_datetime(year, month, days_of_month, time),
                     "low_temperature": low_temperature,
                     "high_temperature": high_temperature,
                 }
@@ -65,23 +66,25 @@ def parse_daily_weather_summary(driver, year, month):
         raise ValueError(error)
 
 
-def crawl_weather_data():
+def scrape_weather_data(driver, end_year):
+    for year in range(PAST_YEAR, end_year, DESCENDING_ORDER):
+        for month in range(FIRST_MONTH_OF_YEAR, LAST_MONTH_OF_YEAR):
+            driver.get(
+                f"https://www.timeanddate.com/weather/iran/tehran/historic?month={month}&year={year}"
+            )
+            weather_data = parse_daily_weather_data(driver, year, month)
+            insert_weather_records(weather_data)
+
+
+def run_weather_crawler():
     driver = webdriver.Chrome()
-    past_year = int(datetime.now().year - 1)
-    last_available_year = 2010 - 1
-    last_month_of_the_year = 12 + 1
-    descending_order = -1
     last_available_year_in_database = find_last_year()
-    if not last_available_year_in_database or last_available_year_in_database[0][0] is None:
-        for year in range(past_year, last_available_year, descending_order):
-            for month in range(1, last_month_of_the_year):
-                driver.get(
-                    f"https://www.timeanddate.com/weather/iran/tehran/historic?month={month}&year={year}"
-                )
-                weather_data = parse_daily_weather_summary(driver, year, month)
-                insert_weather_records(weather_data)
-        driver.quit()
-        print(get_weather_records())
-
-
-crawl_weather_data()
+    if last_available_year_in_database is None:
+        scrape_weather_data(driver, LAST_AVAILABLE_YEAR)
+    else:
+        year_of_db = datetime.strptime(
+            last_available_year_in_database, "%Y-%m-%d %H:%M:%S"
+        ).year
+        if LAST_AVAILABLE_YEAR < int(year_of_db):
+            scrape_weather_data(driver, year_of_db)
+    driver.quit()
