@@ -1,7 +1,0 @@
-mysql-connector-python
-pandas
-numpy
-scikit-learn
-matplotlib
-selenium
-

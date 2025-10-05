@@ -1,20 +1,20 @@
 import pandas as pd
-from database.migration_v1 import CONNECTION
+from utils import get_year_from_date
 
 
-def find_last_year():
-    cursor = CONNECTION.cursor()
+def find_min_and_max_year(connection):
+    cursor = connection.cursor()
     query = """
-            SELECT MAX(date) FROM weather ORDER BY date;
+            SELECT MAX(date), MIN(date) FROM weather;
             """
-    result = cursor.execute(query)
-    records = result.fetchall()
-    return records[0][0]
+    result = cursor.execute(query).fetchall()
+    max_year = None if result[0][0] is None else get_year_from_date(result[0][0])
+    min_year = None if result[0][1] is None else get_year_from_date(result[0][1])
+    return max_year, min_year
 
 
-def insert_weather_records(weather_records):
-    cursor = CONNECTION.cursor()
-
+def insert_weather_records(connection, weather_records):
+    cursor = connection.cursor()
     query = """
                 INSERT OR IGNORE INTO weather(date, low_temperature, high_temperature) VALUES(?, ?, ?)
                 """
@@ -23,12 +23,11 @@ def insert_weather_records(weather_records):
             query,
             (record["date"], record["low_temperature"], record["high_temperature"]),
         )
-    cursor.fetchall()
-    CONNECTION.commit()
+    connection.commit()
 
 
-def get_weather_records():
-    cursor = CONNECTION.cursor()
+def get_weather_records(connection):
+    cursor = connection.cursor()
     query = """
             SELECT id, date, low_temperature, high_temperature FROM weather ORDER BY date;
             """
