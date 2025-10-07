@@ -31,6 +31,5 @@ def get_weather_records(connection):
     query = """
             SELECT id, date, low_temperature, high_temperature FROM weather ORDER BY date;
             """
-    result = cursor.execute(query)
-    records = result.fetchall()
-    return pd.DataFrame(records)
+    result = cursor.execute(query).fetchall()
+    return result

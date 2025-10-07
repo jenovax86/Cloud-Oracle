@@ -2,7 +2,7 @@ from datetime import datetime
 
 
 def remove_temperature_signs(temperature):
-    return int(temperature.split(":")[1])
+    return temperature.str.slice(3)
 
 
 def generate_datetime(year, month, days_of_month, time):

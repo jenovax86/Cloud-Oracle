@@ -3,7 +3,6 @@ import constants
 from crawler import scrape_weather_data
 from database.db import find_min_and_max_year
 
-
 def main():
     sqlite_connection = sqlite3.connect("weather_forecast")
     try:
