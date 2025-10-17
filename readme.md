@@ -30,15 +30,19 @@ pip install -r requirements.txt
     git clone https://github.com/jenovax86/Cloud-Oracle.git
     cd Cloud-oracle
 ```
-### 2. Run the crawler (collects weather data)
+### 2. Create database table:
+```bash
+    python -m database
+```
+### 3. Run the crawler (collects weather data)
 ```bash
  python -m crawler
 ```
-### 3. Train the model
+### 4. Train the model
 ```bash
  python -m model
 ```
-### 4. Generate predictions
+### 5. Generate predictions
 ```bash
  python -m example
 ```
