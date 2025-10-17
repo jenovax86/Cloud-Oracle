@@ -6,7 +6,7 @@
 
 # Limitations
 ## This project is intended for research and learning purposes only. 
-## Forecasts may deviate by approximately 3–4% from real-world data
+Forecasts may deviate by approximately 3–4% from real-world data
 
 # ⚙️ Features
     🌐 Crawler — collects historical and current weather data from websites.
