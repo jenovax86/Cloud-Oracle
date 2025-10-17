@@ -2,15 +2,13 @@
 ## A simple machine learning–powered weather forecasting app built with Python.
 
 # 🌦 Overview
-Cloud Oracle predicts today’s high and low temperatures using machine learning.
-The project demonstrates how to build a complete ML pipeline from data collection to training and prediction all in a single, modular Python project.
+### Cloud Oracle predicts today’s high and low temperatures using machine learning. The project demonstrates how to build a complete ML pipeline from data collection to training and prediction all in a single, modular Python project.
 
 # Limitations
-This project is intended for research and learning purposes only. 
-Forecasts may deviate by approximately 3–4% from real-world data
+### This project is intended for research and learning purposes only. Forecasts may deviate by approximately 3–4% from real-world data
 
 # ⚙️ Features
-    🌐 Crawler — collects historical and current weather data from websites.
+    🌐 Crawler — collects historical and current weather data from website.
 
     🧠 Model Trainer — builds and trains an ML model using the crawled dataset.
 
