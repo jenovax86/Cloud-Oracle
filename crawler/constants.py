@@ -1,5 +1,6 @@
 from datetime import datetime
 
+
 WEBDRIVER_TIMEOUT = 20
 PAST_YEAR = int(datetime.now().year - 1)
 LAST_AVAILABLE_YEAR = 2010

@@ -1,5 +1,4 @@
-import pandas as pd
-from utils import get_year_from_date
+from database.utils import get_year_from_date
 
 
 def find_min_and_max_year(connection):

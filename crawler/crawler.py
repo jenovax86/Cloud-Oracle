@@ -4,10 +4,10 @@ from selenium.webdriver.support.ui import WebDriverWait
 from selenium.common.exceptions import StaleElementReferenceException
 from selenium.webdriver.support import expected_conditions as EC
 from bs4 import BeautifulSoup
-from database.db import insert_weather_records
-import constants
-from utils import find_element, generate_datetime
 
+from crawler import constants
+from database.db import insert_weather_records
+from crawler.utils import find_element, generate_datetime
 
 
 def parse_daily_weather_data(driver, year, month):
@@ -33,7 +33,7 @@ def parse_daily_weather_data(driver, year, month):
                 {
                     "date": generate_datetime(year, month, days_of_month, time),
                     "low_temperature": low_temperature,
-                    "high_temperature": high_temperature
+                    "high_temperature": high_temperature,
                 }
             )
 

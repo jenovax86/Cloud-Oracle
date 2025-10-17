@@ -1,0 +1,5 @@
+selenium
+seaborn
+scikit-learn
+pandas
+numpy

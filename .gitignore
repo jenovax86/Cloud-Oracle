@@ -1,3 +1,6 @@
 __pycache__
 weather_forecast
 .idea
+linear_regression.joblib
+random_forest_regressor.joblib
+.vscode
