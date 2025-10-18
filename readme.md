@@ -1,10 +1,10 @@
 # ☁️ Cloud Oracle — Weather Forecast App
 ## A simple machine learning–powered weather forecasting app built with Python.
 
-# 🌦 Overview
+## 🌦 Overview
 #### Cloud Oracle predicts today’s high and low temperatures using machine learning. The project demonstrates how to build a complete ML pipeline from data collection to training and prediction all in a single, modular Python project.
 
-# Limitations
+## Limitations
 #### This project is intended for research and learning purposes only. Forecasts may deviate by approximately 3–4% from real-world data
 
 # ⚙️ Features
@@ -16,7 +16,7 @@
 
     📊 Visualization Support — Jupyter notebooks for exploratory data analysis and visualization.
 
-# 🚀 Getting Started
+## 🚀 Getting Started
 ## Prerequisites
 ### Install all dependencies using the following command
 ```bash
